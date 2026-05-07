@@ -1,0 +1,56 @@
+﻿@model List<EventEaseAssignment.ViewModels.EventHistoryViewModel>
+
+@{
+    ViewData["Title"] = "Event History";
+}
+
+<h2>Event History</h2>
+
+<!-- SEARCH BOX -->
+<form method="get">
+    <input type="text" name="searchString" placeholder="Search by Booking ID or Event Name" />
+    <button type="submit">Search</button>
+</form>
+
+<br />
+
+<!-- TABLE -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Event Name</th>
+            <th>Event Location</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Venue Name</th>
+            <th>Venue Location</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BookingId</td>
+                    <td>@item.EventName</td>
+                    <td>@item.EventLocation</td>
+                    <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.VenueName</td>
+                    <td>@item.VenueLocation</td>
+                    <td>@item.Capacity</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" class="text-center">No records found</td>
+            </tr>
+        }
+    </tbody>
+</table>

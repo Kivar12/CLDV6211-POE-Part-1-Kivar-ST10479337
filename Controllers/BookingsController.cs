@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +21,9 @@ namespace EventEaseAssignment.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
+            ViewBag.Error = TempData["Error"];
+            ViewBag.Success = TempData["Success"];
+
             return View(await _context.Bookings.ToListAsync());
         }
 
@@ -35,6 +37,7 @@ namespace EventEaseAssignment.Controllers
 
             var bookings = await _context.Bookings
                 .FirstOrDefaultAsync(m => m.BookingId == id);
+
             if (bookings == null)
             {
                 return NotFound();
@@ -50,19 +53,46 @@ namespace EventEaseAssignment.Controllers
         }
 
         // POST: Bookings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,EventName,VenueLocation,CustomerName,Email,Date")] Bookings bookings)
         {
-            if (ModelState.IsValid)
+            try
             {
+                bool nameExists = await _context.Bookings
+                    .AnyAsync(b => b.EventName == bookings.EventName);
+
+                if (nameExists)
+                {
+                    ModelState.AddModelError("EventName", "Event name already exists.");
+                }
+
+                bool venueClash = await _context.Bookings.AnyAsync(b =>
+                    b.VenueLocation == bookings.VenueLocation &&
+                    b.Date == bookings.Date
+                );
+
+                if (venueClash)
+                {
+                    ModelState.AddModelError("", "This venue is already booked at this date and time.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(bookings);
+                }
+
                 _context.Add(bookings);
                 await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Booking created successfully!";
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookings);
+            catch
+            {
+                TempData["Error"] = "Something went wrong while creating the booking.";
+                return View(bookings);
+            }
         }
 
         // GET: Bookings/Edit/5
@@ -74,16 +104,16 @@ namespace EventEaseAssignment.Controllers
             }
 
             var bookings = await _context.Bookings.FindAsync(id);
+
             if (bookings == null)
             {
                 return NotFound();
             }
+
             return View(bookings);
         }
 
         // POST: Bookings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BookingId,EventName,VenueLocation,CustomerName,Email,Date")] Bookings bookings)
@@ -93,27 +123,43 @@ namespace EventEaseAssignment.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                bool nameExists = await _context.Bookings
+                    .AnyAsync(b => b.EventName == bookings.EventName && b.BookingId != bookings.BookingId);
+
+                if (nameExists)
                 {
-                    _context.Update(bookings);
-                    await _context.SaveChangesAsync();
+                    ModelState.AddModelError("EventName", "Event name already exists.");
                 }
-                catch (DbUpdateConcurrencyException)
+
+                bool venueClash = await _context.Bookings.AnyAsync(b =>
+                    b.BookingId != bookings.BookingId &&
+                    b.VenueLocation == bookings.VenueLocation &&
+                    b.Date == bookings.Date
+                );
+
+                if (venueClash)
                 {
-                    if (!BookingsExists(bookings.BookingId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "This venue is already booked at this date and time.");
                 }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(bookings);
+                }
+
+                _context.Update(bookings);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Booking updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookings);
+            catch
+            {
+                TempData["Error"] = "Something went wrong while updating the booking.";
+                return View(bookings);
+            }
         }
 
         // GET: Bookings/Delete/5
@@ -126,6 +172,7 @@ namespace EventEaseAssignment.Controllers
 
             var bookings = await _context.Bookings
                 .FirstOrDefaultAsync(m => m.BookingId == id);
+
             if (bookings == null)
             {
                 return NotFound();
@@ -139,14 +186,33 @@ namespace EventEaseAssignment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bookings = await _context.Bookings.FindAsync(id);
-            if (bookings != null)
+            try
             {
-                _context.Bookings.Remove(bookings);
-            }
+                var booking = await _context.Bookings.FindAsync(id);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (booking == null)
+                {
+                    TempData["Error"] = "Booking not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (booking.Date >= DateTime.Now)
+                {
+                    TempData["Error"] = "Cannot delete an active or upcoming event.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                _context.Bookings.Remove(booking);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Booking deleted successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                TempData["Error"] = "Error occurred while deleting booking.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool BookingsExists(int id)

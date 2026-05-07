@@ -1,157 +1,186 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventEase.Models;
 using EventEaseAssignment.Data;
+using EventEaseAssignment.Services;
 
 namespace EventEaseAssignment.Controllers
 {
     public class EventsController : Controller
     {
         private readonly EventEaseAssignmentContext _context;
+        private readonly BlobService _blobService;
 
-        public EventsController(EventEaseAssignmentContext context)
+        public EventsController(EventEaseAssignmentContext context, BlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
-        // GET: Events
+        // ===================== INDEX =====================
         public async Task<IActionResult> Index()
         {
             return View(await _context.Events.ToListAsync());
         }
 
-        // GET: Events/Details/5
+        // ===================== DETAILS =====================
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.EventId == id);
-            if (events == null)
-            {
-                return NotFound();
-            }
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.EventId == id);
 
-            return View(events);
+            if (@event == null) return NotFound();
+
+            return View(@event);
         }
 
-        // GET: Events/Create
+        // ===================== CREATE =====================
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Events/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,EventName,EventLocation,Startdate,Enddate,EventImageURL")] Events events)
+        public async Task<IActionResult> Create(Events @event, IFormFile imageFile)
         {
-            if (ModelState.IsValid)
+            if (imageFile != null && imageFile.Length > 0)
             {
-                _context.Add(events);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                @event.EventImageURL = await _blobService.UploadFileAsync(imageFile);
             }
-            return View(events);
+
+            if (@event.Startdate >= @event.Enddate)
+            {
+                ModelState.AddModelError("", "Start date must be before end date.");
+            }
+
+            bool nameExists = await _context.Events.AnyAsync(e =>
+                e.EventName == @event.EventName);
+
+            if (nameExists)
+            {
+                ModelState.AddModelError("EventName", "Event name already exists.");
+            }
+
+            bool clash = await _context.Events.AnyAsync(e =>
+                e.EventLocation == @event.EventLocation &&
+                @event.Startdate < e.Enddate &&
+                @event.Enddate > e.Startdate);
+
+            if (clash)
+            {
+                ModelState.AddModelError("", "Event time clashes at this location.");
+            }
+
+            if (!ModelState.IsValid)
+                return View(@event);
+
+            _context.Add(@event);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Event created successfully!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Events/Edit/5
+        // ===================== EDIT =====================
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var events = await _context.Events.FindAsync(id);
-            if (events == null)
-            {
-                return NotFound();
-            }
-            return View(events);
+            var @event = await _context.Events.FindAsync(id);
+
+            if (@event == null) return NotFound();
+
+            return View(@event);
         }
 
-        // POST: Events/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventLocation,Startdate,Enddate,EventImageURL")] Events events)
+        public async Task<IActionResult> Edit(int id, Events @event, IFormFile imageFile)
         {
-            if (id != events.EventId)
-            {
+            if (id != @event.EventId)
                 return NotFound();
+
+            var existing = await _context.Events.FindAsync(id);
+
+            if (existing == null)
+                return NotFound();
+
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                existing.EventImageURL = await _blobService.UploadFileAsync(imageFile);
             }
 
-            if (ModelState.IsValid)
+            existing.EventName = @event.EventName;
+            existing.EventLocation = @event.EventLocation;
+            existing.Startdate = @event.Startdate;
+            existing.Enddate = @event.Enddate;
+
+            if (existing.Startdate >= existing.Enddate)
             {
-                try
-                {
-                    _context.Update(events);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EventsExists(events.EventId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "Start date must be before end date.");
             }
-            return View(events);
+
+            if (!ModelState.IsValid)
+                return View(existing);
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Event updated successfully!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Events/Delete/5
+        // ===================== DELETE =====================
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.EventId == id);
-            if (events == null)
-            {
-                return NotFound();
-            }
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.EventId == id);
 
-            return View(events);
+            if (@event == null) return NotFound();
+
+            return View(@event);
         }
 
-        // POST: Events/Delete/5
+        // ===================== DELETE CONFIRMED (FIXED LOGIC) =====================
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var events = await _context.Events.FindAsync(id);
-            if (events != null)
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.EventId == id);
+
+            if (@event == null)
+                return NotFound();
+
+            // 1. BLOCK IF EVENT HAS BOOKINGS
+            bool hasBookings = await _context.Bookings
+                .AnyAsync(b => b.EventName == @event.EventName);
+
+            if (hasBookings)
             {
-                _context.Events.Remove(events);
+                TempData["Error"] = "Cannot delete an active or upcoming event.";
+                return RedirectToAction(nameof(Index));
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            // 2. BLOCK IF EVENT IS ACTIVE OR IN FUTURE
+            bool isActiveOrUpcoming = @event.Enddate > DateTime.Now;
 
-        private bool EventsExists(int id)
-        {
-            return _context.Events.Any(e => e.EventId == id);
+            if (isActiveOrUpcoming)
+            {
+                TempData["Error"] = "Cannot delete active or upcoming events.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // 3. DELETE
+            _context.Events.Remove(@event);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Event deleted successfully!";
+            return RedirectToAction(nameof(Index));
         }
     }
 }
