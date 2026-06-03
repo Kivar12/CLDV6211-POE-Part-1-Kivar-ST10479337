@@ -9,9 +9,9 @@ namespace EventEase.Models
         [Key]
         public int EventId { get; set; }
 
-        public  string EventName { get; set; } = string.Empty;
+        public string EventName { get; set; } = string.Empty;
 
-        public  string EventLocation { get; set; } = string.Empty;
+        public string EventLocation { get; set; } = string.Empty;
 
         public DateTime Startdate { get; set; }
 
@@ -22,5 +22,4 @@ namespace EventEase.Models
         public List<Bookings> Bookings { get; set; } = new List<Bookings>();
     }
 }
-
 

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* Code Attribution:
+Codes added in this controller were added when the controller was created.
+Additional code was added using YouTube videos.
+Codes from class were also used to add additional codes.
+Codes were also done in class following steps on how to create MVC.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,14 +28,31 @@ namespace EventEaseAssignment.Controllers
             _blobService = blobService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool? venueAvailable)
         {
-            ViewBag.Error = TempData["Error"];
-            ViewBag.Success = TempData["Success"];
+            var venues = from v in _context.Venues
+                         select v;
 
-            return View(await _context.Venues.ToListAsync());
+            if (venueAvailable.HasValue)
+            {
+                if (venueAvailable.Value)
+                {
+                    //Available venues 
+                    venues = venues.Where(v => v.Capacity < 50);
+                }
+                else
+                {
+                    //Fully booked venues
+                    venues = venues.Where(v => v.Capacity >= 50);
+                }
+            }
+
+            ViewBag.VenueAvailable = venueAvailable;
+
+            return View(await venues.ToListAsync());
         }
 
+        //Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +72,7 @@ namespace EventEaseAssignment.Controllers
             return View(venue);
         }
 
+        //Create
         public IActionResult Create()
         {
             return View();
@@ -92,6 +117,7 @@ namespace EventEaseAssignment.Controllers
             return View(venues);
         }
 
+        //Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -154,6 +180,7 @@ namespace EventEaseAssignment.Controllers
             return View(venues);
         }
 
+        //Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

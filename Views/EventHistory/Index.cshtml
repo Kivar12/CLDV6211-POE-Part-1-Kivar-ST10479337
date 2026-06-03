@@ -6,25 +6,80 @@
 
 <h2>Event History</h2>
 
-<!-- SEARCH BOX -->
 <form method="get">
-    <input type="text" name="searchString" placeholder="Search by Booking ID or Event Name" />
-    <button type="submit">Search</button>
+
+    <label>Search</label>
+    <input type="text"
+           name="searchString"
+           value="@ViewBag.SearchString"
+           placeholder="Search by Booking ID or Event Name"
+           class="form-control mb-2"
+           style="width: 600px;" />
+
+    <label>Event Type</label>
+    <input type="text"
+           name="eventType"
+           value="@ViewBag.EventType"
+           placeholder="Search by Event Type"
+           class="form-control mb-2"
+           style="width: 600px;" />
+
+    <label>Start Date</label>
+    <input type="date"
+           name="startDate"
+           value="@ViewBag.StartDate?.ToString("yyyy-MM-dd")"
+           class="form-control mb-2"
+           style="width: 300px;" />
+
+    <label>End Date</label>
+    <input type="date"
+           name="endDate"
+           value="@ViewBag.EndDate?.ToString("yyyy-MM-dd")"
+           class="form-control mb-2"
+           style="width: 300px;" />
+
+    <label>Venue Availability</label>
+
+    <select name="venueAvailable" class="form-control mb-3" style="width:300px;">
+        <option value="" selected="@(ViewBag.VenueAvailable == null)">
+            All Venues
+        </option>
+
+        <option value="true" selected="@(ViewBag.VenueAvailable?.ToString() == "True")">
+            Available Venues
+        </option>
+
+        <option value="false" selected="@(ViewBag.VenueAvailable?.ToString() == "False")">
+            Fully Booked
+        </option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">
+        Filter results
+    </button>
+
+    <br />
+
+    <br />
+
+    <a asp-action="Index" class="btn btn-primary">
+        Clear
+    </a>
+
 </form>
 
 <br />
 
-<!-- TABLE -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Booking ID</th>
-            <th>Event Name</th>
+            <th style="width: 120px;">Booking ID</th>
+            <th style="width: 180px;">Event Name</th>
             <th>Event Location</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th style="width: 140px;"> Start Date</th>
+            <th style="width: 140px;">End Date</th>
             <th>Venue Name</th>
-            <th>Venue Location</th>
+            <th th style="width: 140px;">Venue Location</th>
             <th>Capacity</th>
         </tr>
     </thead>
@@ -49,7 +104,9 @@
         else
         {
             <tr>
-                <td colspan="8" class="text-center">No records found</td>
+                <td colspan="8" class="text-center">
+                    No records found
+                </td>
             </tr>
         }
     </tbody>

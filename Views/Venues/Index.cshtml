@@ -19,15 +19,43 @@
             <p>
          <a asp-action="Create" class="btn btn-primary">Create Venue</a>
             </p>
+<form method="get">
 
+    <label>Venue Availability</label>
+
+    <select name="venueAvailable" class="form-control mb-3" style="width:300px;">
+        <option value="" selected="@(ViewBag.VenueAvailable == null)">
+            All Venues
+        </option>
+
+        <option value="true" selected="@(ViewBag.VenueAvailable?.ToString() == "True")">
+            Available Venues
+        </option>
+
+        <option value="false" selected="@(ViewBag.VenueAvailable?.ToString() == "False")">
+            Fully Booked
+        </option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Filter results</button>
+
+    <br />
+   
+    <br />
+
+    <a asp-action="Index" class="btn btn-primary">Clear</a>
+
+</form>
+
+<br />
             <table class="table">
                 <thead>
                     <tr>
                         <th>Venue Location</th>
-                        <th>Venue Name</th>
+                        <th style="width: 400px;">Venue Name</th>
                         <th>Capacity</th>
-                        <th>Image</th>
-                        <th></th>
+                        <th style="width: 250px;">Image</th>
+                        <th style ="width: 250px;">Actions</th>
                     </tr>
                 </thead>
 
@@ -42,14 +70,16 @@
                 <td>
                     @if (!string.IsNullOrEmpty(item.VenueImageURL))
                     {
-                        <img src="@item.VenueImageURL" height="120" width="180" />
+                        <div class="text-center">
+                        <img src="@item.VenueImageURL" height="140" width="240" />
+                        </div>
                     }
                 </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.VenueId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.VenueId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.VenueId">Delete</a>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.VenueId">Edit</a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.VenueId">Details</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.VenueId">Delete</a>
                 </td>
             </tr>
         }

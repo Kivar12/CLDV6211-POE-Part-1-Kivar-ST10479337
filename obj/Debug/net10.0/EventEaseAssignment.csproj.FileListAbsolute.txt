@@ -329,7 +329,6 @@ C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\EventEas.F104F632.Up2Date
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\EventEaseAssignment.dll
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\refint\EventEaseAssignment.dll
@@ -344,3 +343,5 @@ C:\Users\lab_services_student\source\repos\EventEaseAssignment\bin\Debug\net10.0
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\bin\Debug\net10.0\Microsoft.Extensions.Azure.dll
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\bin\Debug\net10.0\System.IO.Hashing.dll
 C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\compressed\2xy2r42y9t-{0}-064m6csvqa-064m6csvqa.gz
+C:\Users\lab_services_student\source\repos\EventEaseAssignment\bin\Debug\net10.0\dotnet-tools.json
+C:\Users\lab_services_student\source\repos\EventEaseAssignment\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

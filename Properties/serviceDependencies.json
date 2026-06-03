@@ -8,6 +8,11 @@
       "type": "storage",
       "connectionId": "StorageConnection",
       "dynamicId": null
+    },
+    "storage2": {
+      "type": "storage",
+      "connectionId": "StorageConnection1",
+      "dynamicId": null
     }
   }
 }

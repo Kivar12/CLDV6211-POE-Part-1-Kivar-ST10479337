@@ -56,17 +56,26 @@
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" type="datetime-local" />
                 <span asp-validation-for="Date" class="text-danger"></span>
+
+            <br />
+
             </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+
+                <br />
+
             </div>
+
+            <br />
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>
 
 @section Scripts {

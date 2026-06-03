@@ -9,6 +9,14 @@
       "type": "storage.emulator",
       "connectionId": "StorageConnection",
       "dynamicId": null
+    },
+    "storage2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.ServiceLinker/locations/westus/connectors/StorageConnection1_F1F05E8770, /subscriptions/a453da77-71e5-42c6-ab0b-61495bd7a983/resourceGroups/ST10479337CLDV6211POE_group/providers/Microsoft.ServiceLinker/locations/westus/connectors/StorageConnection1_C2E30122E6",
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/st10479337cldv6211poe",
+      "type": "storage.azure",
+      "connectionId": "StorageConnection1",
+      "dynamicId": null
     }
   }
 }

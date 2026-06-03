@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gQFWc3Lf1E4=",
+  "dgSpecHash": "/aK1jvnns4w=",
   "success": true,
   "projectFilePath": "C:\\Users\\lab_services_student\\source\\repos\\EventEaseAssignment\\EventEaseAssignment.csproj",
   "expectedPackageFiles": [
@@ -81,13 +81,13 @@
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\6.0.2\\microsoft.data.sqlclient.sni.runtime.6.0.2.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.diasymreader\\2.0.0\\microsoft.diasymreader.2.0.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.dotnet.scaffolding.shared\\10.0.2\\microsoft.dotnet.scaffolding.shared.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.2\\microsoft.entityframeworkcore.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.2\\microsoft.entityframeworkcore.abstractions.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.2\\microsoft.entityframeworkcore.analyzers.10.0.2.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.8\\microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.8\\microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.8\\microsoft.entityframeworkcore.analyzers.10.0.8.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.design\\10.0.2\\microsoft.entityframeworkcore.design.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.2\\microsoft.entityframeworkcore.relational.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\10.0.2\\microsoft.entityframeworkcore.sqlserver.10.0.2.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.2\\microsoft.entityframeworkcore.tools.10.0.2.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.8\\microsoft.entityframeworkcore.relational.10.0.8.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\10.0.8\\microsoft.entityframeworkcore.sqlserver.10.0.8.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.8\\microsoft.entityframeworkcore.tools.10.0.8.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.extensions.azure\\1.13.1\\microsoft.extensions.azure.1.13.1.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.2\\microsoft.extensions.dependencymodel.10.0.2.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.identity.client\\4.78.0\\microsoft.identity.client.4.78.0.nupkg.sha512",
@@ -110,15 +110,15 @@
     "C:\\Users\\lab_services_student\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\10.0.2\\microsoft.visualstudio.web.codegenerators.mvc.10.0.2.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.common\\7.3.1\\nuget.common.7.3.1.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.configuration\\7.3.1\\nuget.configuration.7.3.1.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.common\\7.6.0\\nuget.common.7.6.0.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.configuration\\7.6.0\\nuget.configuration.7.6.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.dependencyresolver.core\\6.12.1\\nuget.dependencyresolver.core.6.12.1.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.frameworks\\7.3.1\\nuget.frameworks.7.3.1.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.frameworks\\7.6.0\\nuget.frameworks.7.6.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.librarymodel\\6.12.1\\nuget.librarymodel.6.12.1.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.packaging\\7.3.1\\nuget.packaging.7.3.1.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.packaging\\7.6.0\\nuget.packaging.7.6.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.projectmodel\\6.12.1\\nuget.projectmodel.6.12.1.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.protocol\\6.12.1\\nuget.protocol.6.12.1.nupkg.sha512",
-    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.versioning\\7.3.1\\nuget.versioning.7.3.1.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.protocol\\7.6.0\\nuget.protocol.7.6.0.nupkg.sha512",
+    "C:\\Users\\lab_services_student\\.nuget\\packages\\nuget.versioning\\7.6.0\\nuget.versioning.7.6.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\system.clientmodel\\1.8.0\\system.clientmodel.1.8.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\system.composition\\9.0.0\\system.composition.9.0.0.nupkg.sha512",
@@ -136,18 +136,5 @@
     "C:\\Users\\lab_services_student\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\lab_services_student\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.6\\system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1901",
-      "level": "Warning",
-      "message": "Package 'NuGet.Protocol' 6.12.1 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
-      "projectPath": "C:\\Users\\lab_services_student\\source\\repos\\EventEaseAssignment\\EventEaseAssignment.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\lab_services_student\\source\\repos\\EventEaseAssignment\\EventEaseAssignment.csproj",
-      "libraryId": "NuGet.Protocol",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }

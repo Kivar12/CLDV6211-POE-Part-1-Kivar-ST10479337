@@ -24,29 +24,47 @@
     <a asp-action="Create" class="btn btn-primary">Create Booking</a>
 </p>
 
+<form method="get" class="mb-3">
+
+    <label>Search</label>
+    <input type="text"
+           name="searchString"
+           value="@ViewBag.SearchString"
+           placeholder="Search by Event Name or Venue Location or Customer Name"
+           class="form-control" 
+           style="width: 600px;" />
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">
+        Filter results
+    </button>
+
+    <br />
+
+    <br />
+
+    <a asp-action="Index" class="btn btn-primary">
+        Clear
+    </a>
+
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VenueLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
+            <th>Event Name</th>
+            <th>Venue Location</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th style="width: 250px;">Actions</th>
         </tr>
     </thead>
 
     <tbody>
+         @if (Model != null && Model.Any())
+        {
         @foreach (var item in Model)
         {
             <tr>
@@ -66,9 +84,18 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.BookingId">Delete</a>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.BookingId">Edit</a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.BookingId">Details</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.BookingId">Delete</a>
+                </td>
+            </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">
+                    No records found
                 </td>
             </tr>
         }

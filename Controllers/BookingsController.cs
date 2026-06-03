@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Code Attribution:
+Codes added in this controller were added when the controller was created.
+Additional code was added using YouTube videos.
+Codes from class were also used to add additional codes.
+Codes were also done in class following steps on how to create MVC.
+*/
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +25,50 @@ namespace EventEaseAssignment.Controllers
         }
 
         // GET: Bookings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString,
+                                        DateTime? startDate,
+                                        DateTime? endDate,
+                                        string eventType)
         {
-            ViewBag.Error = TempData["Error"];
-            ViewBag.Success = TempData["Success"];
+            ViewBag.SearchString = searchString;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+            ViewBag.EventType = eventType;
 
-            return View(await _context.Bookings.ToListAsync());
+            var bookings = from b in _context.Bookings
+                           select b;
+
+            //Search
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                bookings = bookings.Where(b =>
+                    b.EventName.Contains(searchString) ||
+                    b.VenueLocation.Contains(searchString) ||
+                    b.CustomerName.Contains(searchString));
+            }
+
+            //Event Type
+            if (!string.IsNullOrEmpty(eventType))
+            {
+                bookings = bookings.Where(b =>
+                    b.EventName.Contains(eventType));
+            }
+
+            //Start Date
+            if (startDate.HasValue)
+            {
+                bookings = bookings.Where(b =>
+                    b.Date >= startDate.Value);
+            }
+
+            //End Date
+            if (endDate.HasValue)
+            {
+                bookings = bookings.Where(b =>
+                    b.Date <= endDate.Value);
+            }
+
+            return View(await bookings.ToListAsync());
         }
 
         // GET: Bookings/Details/5

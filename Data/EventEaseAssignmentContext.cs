@@ -9,7 +9,7 @@ namespace EventEaseAssignment.Data
 {
     public class EventEaseAssignmentContext : DbContext
     {
-        public EventEaseAssignmentContext (DbContextOptions<EventEaseAssignmentContext> options)
+        public EventEaseAssignmentContext(DbContextOptions<EventEaseAssignmentContext> options)
             : base(options)
         {
         }
